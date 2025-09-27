@@ -81,6 +81,23 @@ class Booking(BaseModel):
     class Config:
         from_attributes = True
 
+# --- New Schemas for Seat Request & Suggestions ---
+class SeatRequest(BaseModel):
+    show_id: int
+    user_id: str
+    number_of_seats: int
+
+class ShowSuggestion(Show):
+    available_seats: List[List[Seat]] # A list of available contiguous blocks
+
+class BookingSuggestionResponse(BaseModel):
+    message: str
+    suggestions: List[ShowSuggestion]
+
+class BookingConfirmation(BaseModel):
+    booking: Booking
+    message: str
+
 # --- Analytics Schemas ---
 class MovieAnalytics(BaseModel):
     movie_id: int
